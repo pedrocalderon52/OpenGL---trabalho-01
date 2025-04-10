@@ -11,6 +11,13 @@ float v0 = 20.0f;
 float ACELERACAO_GRAVIDADE = -9.8;
 float tempo = 0.0f;
 bool estaPulando = false;
+float x_direcao = 1;
+float y_direcao = 1;
+
+
+
+
+
 
 void animar(int timer) {
     glutPostRedisplay();
@@ -20,18 +27,12 @@ void animar(int timer) {
 }
 
 
-void teclado4(unsigned char key, int x, int y) {
+void teclado3(unsigned char key, int x, int y) {
     if (key == 'd') {
         x_position += 5.0f;
     }
     else if (key == 'a') {
         x_position -= 5.0f;
-    }
-    else if (key == 'w') {
-        y_position += 5.0f;
-    }
-    else if (key == 's') {
-        y_position -= 5.0f;
     }
     else if (key == 32 && !estaPulando) {
         estaPulando = true;
@@ -48,7 +49,7 @@ void updateJump(float deltaT) {
 
 
         // Equação de movimento para a posição vertical
-        y_position = 5 * (v0 * tempo + 0.5f * aceleracao_gravidade * tempo * tempo);
+        y_position = 5 * (v0 * tempo + 0.5f * ACELERACAO_GRAVIDADE * tempo * tempo);
 
         // Se o personagem atingir o chão, ele para de pular
         float zero = 0.0f;
@@ -63,16 +64,38 @@ void updateJump(float deltaT) {
     }
 }
 
-void update(int value) {
+void update3(int value) {
     float deltaTime = 0.036f; // Supondo 60 FPS (1/60 segundos por frame)
 
     // Atualizar a posição do pulo
     updateJump(deltaTime);
 
     glutPostRedisplay(); // Redesenha a cena
-    glutTimerFunc(16, update, 0); // Chama a função de update novamente após 16ms
+    glutTimerFunc(16, update3, 0); // Chama a função de update novamente após 16ms
 
 
+}
+
+void animar4(int timer) {
+    x_position += 2 * x_direcao;
+    y_position += 2 * y_direcao;
+
+    glutPostRedisplay();
+
+    if (x_position + 50 >= 600 && x_direcao > 0) {
+        x_direcao = -1;
+    }
+    if (x_position <= 0 && x_direcao < 0) {
+        x_direcao = 1;
+    }
+    if (y_position + 50 >= 600 && y_direcao > 0) {
+        y_direcao = -1;
+    }
+    if (y_position <= 0 && y_direcao < 0) {
+        y_direcao = 1;
+    }
+
+    glutTimerFunc(16, animar4, 0);
 }
 
 void display1() {
@@ -205,7 +228,7 @@ void display2() {
 
 }
 
-void display4() {
+void display3() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glColor3f(0.60f, 0.38f, 0.11f);
@@ -232,17 +255,13 @@ void display4() {
 
     glColor3f(0.58f, 0.05f, 0.05f);
     glBegin(GL_QUADS);
-    glVertex2f(450, 399);
+    glVertex2f(450, 399); 
     glVertex2f(650, 399);
     glVertex2f(650, 0);
     glVertex2f(450, 0);
 
     glEnd();
     glFlush();
-
-
-
-
 
 
     glColor3f(1.0f, 0.0f, 0.0f);
@@ -259,7 +278,21 @@ void display4() {
     glFlush();
 
 
+}
 
+void display4() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1.0f, 0.0f, 1.0f);
+    
+    glBegin(GL_QUADS);
+        glVertex2f(x_position, y_position);
+        glVertex2f(50+x_position, y_position);
+        glVertex2f(50+x_position, 50+y_position);
+        glVertex2f(x_position, 50+y_position);
+    glEnd();
+    glFlush();
+    
+    
 
 
 
@@ -292,7 +325,7 @@ void display6() {
 
 int main(int argc, char** argv) {
     int resp;
-    cout << "Digite o exercício que quer exibir (1 a 5, e 6 exibe a bandeira do brasil): \n";
+    cout << "Digite o numero correspondente ao exercicio que quer exibir (1 a 5, e 6 exibe a bandeira do brasil): \n";
     cin >> resp;
     switch (resp) {
     case 1:
@@ -316,20 +349,31 @@ int main(int argc, char** argv) {
         glutMainLoop();
         break;
     case 3:
-        break;
-    case 4:
         glutInit(&argc, argv);
         glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
         glutInitWindowSize(900, 900);
-        glutCreateWindow("Exercício 04");
-        glutDisplayFunc(display4);
-        glutTimerFunc(25, update, 0);
-        glutKeyboardFunc(teclado4);
+        glutCreateWindow("Exercício 03");
+        glutDisplayFunc(display3);
+        glutTimerFunc(25, update3, 0);
+        glutKeyboardFunc(teclado3);
 
         gluOrtho2D(0, 900, 0, 900);
         glClearColor(0.27f, 0.93f, 0.93f, 0);
         glutMainLoop();
         break;
+    case 4:
+        y_position = 1;
+        x_position = 200;
+
+        glutInit(&argc, argv);
+        glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+        glutInitWindowSize(600, 600);
+        glutCreateWindow("Exercício 04");
+        glutDisplayFunc(display4);
+        glutTimerFunc(0, animar4, 0);
+        gluOrtho2D(0, 600, 0, 600);
+        glClearColor(1.0f, 1.0f, 1.0f, 0);
+        glutMainLoop();
     case 5:
         break;
     case 6:
