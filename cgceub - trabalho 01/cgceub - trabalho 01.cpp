@@ -13,10 +13,23 @@ float tempo = 0.0f;
 bool estaPulando = false;
 float x_direcao = 1;
 float y_direcao = 1;
+float theta = 0.0;
+float PI = 3.14159265;
 
-
-
-
+float CORES_EX_6[12][3] = {
+    {0.25, 0.35, 0.25},
+    {0.19, 0.31, 0.69},
+    {0.33, 0.25, 0.35},
+    {0.44, 0.25, 0.27},
+    {0.60, 0.23, 0.20},
+    {0.90, 0.17, 0.18},
+    {0.89, 0.25, 0.15},
+    {0.89, 0.47, 0.10},
+    {0.85, 0.48, 0.05},
+    {0.84, 0.65, 0.00},
+    {0.73, 0.62, 0.00},
+    {0.43, 0.46, 0.09}
+};
 
 
 void animar(int timer) {
@@ -98,6 +111,12 @@ void animar4(int timer) {
     glutTimerFunc(16, animar4, 0);
 }
 
+void animar5(int timer) {
+    theta += 0.02;
+
+    glutTimerFunc(0, animar5, 0);
+}
+
 void display1() {
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -169,6 +188,7 @@ void display1() {
 
 }
 
+
 void display2() {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -228,6 +248,7 @@ void display2() {
 
 }
 
+
 void display3() {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -280,6 +301,7 @@ void display3() {
 
 }
 
+
 void display4() {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0f, 0.0f, 1.0f);
@@ -291,14 +313,37 @@ void display4() {
         glVertex2f(x_position, 50+y_position);
     glEnd();
     glFlush();
-    
-    
-
-
-
 }
 
 
+void display5() {
+
+    int i_cor = 0;
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_TRIANGLE_FAN);
+    glRotatef(theta, 0, 0, 1);
+
+    glColor3f(CORES_EX_6[i_cor][0], CORES_EX_6[i_cor][1], CORES_EX_6[i_cor][2]);
+    glVertex2f(0, 0);
+
+    for (int i = 0; i < 360; i++) {
+        float ang = 2 * PI * i / 360;
+        glVertex2f(cos(ang) * 210, sin(ang) * 210);
+        if (i % 30 == 0) {
+            i_cor += 1;
+            glEnd();
+            glFlush();
+            glColor3f(CORES_EX_6[i_cor][0], CORES_EX_6[i_cor][1], CORES_EX_6[i_cor][2]);
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2f(0, 0);
+        }
+    }
+
+
+    glEnd();
+    glFlush();
+    
+}
 void display6() {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.85f, 0.82f, 0.18f);
@@ -375,7 +420,15 @@ int main(int argc, char** argv) {
         glClearColor(1.0f, 1.0f, 1.0f, 0);
         glutMainLoop();
     case 5:
-        break;
+        glutInit(&argc, argv);
+        glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+        glutInitWindowSize(600, 600);
+        glutCreateWindow("Exercício 05");
+        glutDisplayFunc(display5);
+        glutTimerFunc(0, animar5, 0);
+        gluOrtho2D(-600, 600, -420, 420);
+        glClearColor(1.0f, 1.0f, 1.0f, 0);
+        glutMainLoop();
     case 6:
         glutInit(&argc, argv);
         glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
