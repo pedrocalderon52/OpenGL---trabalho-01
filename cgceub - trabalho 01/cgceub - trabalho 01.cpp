@@ -13,7 +13,6 @@ float tempo = 0.0f;
 bool estaPulando = false;
 float x_direcao = 1;
 float y_direcao = 1;
-float theta = 0.0;
 float PI = 3.14159265;
 
 float CORES_EX_6[12][3] = {
@@ -111,11 +110,6 @@ void animar4(int timer) {
     glutTimerFunc(16, animar4, 0);
 }
 
-void animar5(int timer) {
-    theta += 0.02;
-
-    glutTimerFunc(0, animar5, 0);
-}
 
 void display1() {
 
@@ -320,26 +314,26 @@ void display5() {
 
     int i_cor = 0;
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_TRIANGLE_FAN);
-    glRotatef(theta, 0, 0, 1);
 
-    glColor3f(CORES_EX_6[i_cor][0], CORES_EX_6[i_cor][1], CORES_EX_6[i_cor][2]);
+    glRotatef(10, 0, 0, 1);
+
+    glBegin(GL_POLYGON);
+    
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    
     glVertex2f(0, 0);
 
-    for (int i = 0; i < 360; i++) {
+    for (int i = 0; i < 362; i++) {
         float ang = 2 * PI * i / 360;
         glVertex2f(cos(ang) * 210, sin(ang) * 210);
         if (i % 30 == 0) {
             i_cor += 1;
-            glEnd();
-            glFlush();
-            glColor3f(CORES_EX_6[i_cor][0], CORES_EX_6[i_cor][1], CORES_EX_6[i_cor][2]);
-            glBegin(GL_TRIANGLE_FAN);
-            glVertex2f(0, 0);
+            glColor3f(CORES_EX_6[i_cor % 12][0], CORES_EX_6[i_cor % 12][1], CORES_EX_6[i_cor % 12][2]);
         }
     }
 
-
+    
     glEnd();
     glFlush();
     
@@ -425,8 +419,7 @@ int main(int argc, char** argv) {
         glutInitWindowSize(600, 600);
         glutCreateWindow("Exercício 05");
         glutDisplayFunc(display5);
-        glutTimerFunc(0, animar5, 0);
-        gluOrtho2D(-600, 600, -420, 420);
+        gluOrtho2D(-300, 300, -300, 300);
         glClearColor(1.0f, 1.0f, 1.0f, 0);
         glutMainLoop();
     case 6:
