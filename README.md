@@ -1,7 +1,7 @@
 
 # 🐢 Trabalho de Computação Gráfica 
 
-Lista de Exercícios Computação Gráfica, usando a biblioteca de C++ OpenGL - Prof. Fábio Ramos
+Este trabalho resolve uma lista de exercícios usando a biblioteca de C++ OpenGL, da matéria de Computação Gráfica, do CEUB, ministrada pelo professor Fábio Ramos.
 
 ## 🎯 Exercícios
     1) Recriar imagem
@@ -22,11 +22,13 @@ Lista de Exercícios Computação Gráfica, usando a biblioteca de C++ OpenGL - 
 
 
 ## 📚 Documentação & Bibliotecas utilizadas
--  [Documentação C++](https://docs.python.org/pt-br/3/)
+-  [Documentação C++](https://learn.microsoft.com/pt-br/cpp/cpp/?view=msvc-170)
 -  [Documentação OpenGL](https://www.opengl.org/Documentation/Documentation.html)
 -  [Documentação FreeGLut](https://freeglut.sourceforge.net/)
 -  [Documentação Glew](https://glew.sourceforge.net/)
 -  [Lista de exercícios](https://docs.google.com/document/d/1kjeUsu3waULmZgNxssrCaUTpHaLrtqh3xQh9CVnwPw0/edit?usp=sharing)
+-  [Documentação Python](https://docs.python.org/pt-br/3/)
+-  [Documentação Pyperclip](https://pyperclip.readthedocs.io/en/latest/)
 
 ## 🪪 Créditos 
 
