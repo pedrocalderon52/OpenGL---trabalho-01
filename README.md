@@ -18,6 +18,8 @@ Lista de Exercícios Computação Gráfica, usando a biblioteca de C++ OpenGL - 
     5) Crie uma animação de um círculo multicolorida girando no
      sentido horário.
 
+     6) (Extra) Bandeira do Brasil
+
 
 ## 📚 Documentação & Bibliotecas utilizadas
 -  [Documentação C++](https://docs.python.org/pt-br/3/)
