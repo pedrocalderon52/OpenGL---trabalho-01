@@ -421,6 +421,7 @@ int main(int argc, char** argv) {
         glutDisplayFunc(display5);
         gluOrtho2D(-300, 300, -300, 300);
         glClearColor(1.0f, 1.0f, 1.0f, 0);
+        glutTimerFunc(0, animar4, 0);
         glutMainLoop();
     case 6:
         glutInit(&argc, argv);
