@@ -33,3 +33,4 @@ Este trabalho resolve uma lista de exercícios usando a biblioteca de C++ OpenGL
 ## 🪪 Créditos 
 
 - Pedro Calderón Nunes
+- Lucas Alberto Borges de Almeida
